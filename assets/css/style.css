@@ -1,0 +1,44 @@
+* {
+    font-family: "Calluna", "Acumin", "Plantin", "Sabon", Arial, Helvetica, sans-serif;
+}
+
+.quiz, .score {
+    margin: 50px auto 0 auto;
+    max-width: 400px;
+}
+
+p {
+    margin: 15px 15px;
+}
+
+.landing {
+    text-align: center;
+}
+
+.scoresHeader {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+
+.timer {
+    position: absolute;
+    top: 20px;
+    right: 50px;
+}
+
+button {
+    display: inline-block;
+    margin: 10px;
+    cursor: alias;
+    color: #3c2a21;
+    background-color: #F8ECD1;
+    border-radius: 100px;
+    border: 1px solid #3c2a21;
+    padding: 10px;
+}
+
+button:hover {
+    background-color: #3c2a21;
+    color: #F8ECD1;
+}
