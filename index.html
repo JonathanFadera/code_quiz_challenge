@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/style.css/">
+  <title>Code Quiz</title>
+</head>
+<body>
+  <header>
+    <div>
+      <a href="highscores.html"> <button class="scores-header" id="view-high-scores">View High Scores</button> </a>
+    </div>
+    <div class="timer">
+      <p>Time:
+        <span id="time">00:00</span>
+      </p>
+    </div>
+  </header>
+  <main class="quiz">
+    <div id="quiz-start">
+      <div class="landing" id="start-screen">
+        <h1>Coding Quiz Challenge</h1>
+        <p>
+          Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+          <button id="start">Start Quiz</button>
+        </div>
+    </div>
+    <div id="questions" class="hide">
+      <h2 id="questions-title"></h2>
+      <div id="choices" class="choices">
+    </div>
+    <div class="hide" id="quiz-end">
+      <h2 id="Well Done!"></h2>
+      <p>Your final score is <span id="final-score"></span></p>
+      <p>
+        Enter your name: <input type="text" id="name" max="3" placeholder="Enter name">
+        <button id="submit">Submit</button>
+      </p>
+    </div>
+    <div id="feedback" class="feedback hide"</div>
+    <script src="./assets/script.js/"></script>
+  </body>
+</html>
