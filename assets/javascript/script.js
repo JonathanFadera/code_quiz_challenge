@@ -51,4 +51,5 @@ var questions = [
         question:"In JavaScript, what element is used to store and manipulate text, usually in multiples?",
         answers: ["Recorders", "Variables", "Arrays", "Strings"],
         correctAnswer: "Strings"
-    },
+    }],
+
