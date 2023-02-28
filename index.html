@@ -9,18 +9,10 @@
 </head>
 
 <body>
-  <header>
-    <div>
-      <a href="./highscores.html"> <button class="scores-header" id="view-high-scores">View High Scores</button> </a>
-    </div>
-    <div class="timer">
-      <p>Time:
-        <span id="time">0</span>
-      </p>
-    </div>
-  </header>
-
-  <main class="quiz">
+  <div><a href="highscores.html"> <button class="scores-header" id="view-high-scores">View High Scores</button> </a>
+</div>
+  <div class="timer">Time: <span id="time">0</span></div>
+  <div class="quiz">
     <div id="quiz-start">
       <div class="landing" id="start-screen">
         <h1>Coding Quiz Challenge</h1>
@@ -31,21 +23,21 @@
     </div>
 
     <div id="questions" class="hide">
-      <h2 id="question-title"></h2>
-    </div>
+      <h2 id="question-title"></h2></div>
       <div id="choices" class="choices">
     </div>
 
     <div class="hide" id="quiz-end">
       <h2 id="Well Done!"></h2>
-      <p>Your final score is : <span id="final-score"></span></p>
-      <p>Enter your name: <input type="text" id="name" max="3" placeholder="Enter name">
+      <p>Your final score is : <span id="final-score"></span>.</p>
+      <p>Enter Initials: <input type="text" id="name" max="3" placeholder="Enter initials">
         <button id="submit">Submit</button>
       </p>
     </div>
 
-   <div id="feedback" class="feedback hide"></div>
-  </main>
+    <div id="feedback" class="feedback hide"></div>
+  </div>
+  
     <script src="./assets/javascript/script.js"></script>
   </body>
 </html>
