@@ -3,7 +3,7 @@
 }
 
 .quiz, .score {
-    margin: 50px auto 0 auto;
+    margin: 100px auto 0 auto;
     max-width: 400px;
 }
 
@@ -15,11 +15,7 @@ p {
     text-align: center;
 }
 
-.scoresHeader {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
+
 
 .timer {
     position: absolute;
@@ -31,18 +27,19 @@ p {
     background-color: #F8ECD1;
     border-radius: 100px;
     border: 1px solid #3c2a21;
-    padding: 10px;
+    padding: 1px 10px;
 }
 
 button {
     display: inline-block;
-    margin: 10px;
+    margin: 5px;
     cursor: alias;
     color: #3c2a21;
     background-color: #F8ECD1;
-    border-radius: 100px;
+    border-radius: 200px;
     border: 1px solid #3c2a21;
     padding: 10px;
+    transition: all 0.3s ease-in-out;
 }
 
 button:hover {

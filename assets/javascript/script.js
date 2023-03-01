@@ -1,178 +1,160 @@
-const questions = [
+// List of Questions and Answers
+
+var questions = [
     {
-        question:"What tag is used to define – and place – an interactive button in an HTML document?",
-        choices: ["<button>", "<interactive>", "<form>", "<input>"],
-        answer: "<button>"
+        prompt: "1.JavaScript is a ___ -side programming language.",
+        options: ["Client", "Server", "Both", "None"],
+        answer: "Both"
     },
+
     {
-        question:"What tag is used to render or transform text into an emphasized (italics) version?",
-        choices: ["<a>", "<blockquote>", "<em>", "<strong>"],
-        answer: "<em>"
+        prompt: "2.Which of the following will write the message “Hello DataFlair!” in an alert box?",
+        options: ["alertBox(“Hello DataFlair!”);", "msg(“Hello DataFlair!”);", "alert(“Hello DataFlair!”);", "msgBox(“Hello DataFlair!”);"],
+        answer: "alert(“Hello DataFlair!”);"
     },
+
     {
-        question:"What declaration MUST be included as the first item in an HTML document before the tag and is used to provide instructions to the web browser?",
-        choices: ["<caption>", "<code>", "<!DOCTYPE>", "<html>"],
-        answer: "<!DOCTYPE>"
+        prompt: "3.Which JavaScript label catches all the values, except for the ones specified?",
+        options: ["catch", "label", "try", "default"],
+        answer: "default"
     },
+
     {
-        question:"What is the name of the property that is used to define the special state of an element?",
-        choices: ["Style", "Syntax", "Pseudo-class", "Alignment"],
-        answer: "Pseudo-class"
+        prompt: "4.Which are the correct “if” statements to execute certain code if “x” is equal to 2?",
+        options: ["if(x 2)", "if(x = 2)", "if(x == 2)", "if(x != 2)"],
+        answer: "if(x == 2)"
     },
+
     {
-        question:"What is the box called in CSS that wraps around every HTML element?",
-        choices: ["Float", "Margin", "Wrap", "Box Model"],
-        answer: "Box Model"
-    },
-    {
-        question:"What is the name of CSS design that calls for fluid and adaptable elements based on the device resolution or size?",
-        choices: ["Evolution", "Shifting", "Responsive", "Cascading"],
-        answer: "Responsive"
-    },
-    {
-        question:"In JavaScript, what element is used to store multiple values in a single variable?",
-        choices: ["Functions", "Variables", "Arrays", "Objects"],
-        answer: "Arrays"
-    },
-    {
-        question:"What is a JavaScript element that represents either TRUE or FALSE values?",
-        choices: ["Event", "Condition", "Boolean", "Variable"],
-        answer: "Boolean"
-    },
-    {
-        question:"In JavaScript, what element is used to store and manipulate text, usually in multiples?",
-        choices: ["Recorders", "Variables", "Arrays", "Strings"],
-        answer: "Strings"
+        prompt: "5.How do you find the minimum of x and y using JavaScript?",
+        options: ["min(x,y)", "Math.min(x,y)", "Math.min(xy)", "min(xy)"],
+        answer: "Math.min(x,y)"
+    }];
+
+// Get Dom Elements
+
+var questionsEl = document.querySelector("#questions");
+var timerEl = document.querySelector("#timer");
+var choicesEl = document.querySelector("#options");
+var submitBtn = document.querySelector("#submit-score");
+var startBtn = document.querySelector("#start");
+var nameEl = document.querySelector("#name");
+var feedbackEl = document.querySelector("#feedback");
+var reStartBtn = document.querySelector("#restart");
+
+// Quiz's initial state
+
+var currentQuestionIndex = 0;
+var time = questions.length * 15;
+var timerId;
+
+// Start quiz and hide frontpage
+
+function quizStart() {
+    timerId = setInterval(clockTick, 1000);
+    timerEl.textContent = time;
+    var landingScreenEl = document.getElementById("start-screen");
+    landingScreenEl.setAttribute("class", "hide");
+    questionsEl.removeAttribute("class");
+    getQuestion();
+}
+
+// Loop through array of questions and answers and create list with buttons
+
+function getQuestion() {
+    var currentQuestion = questions[currentQuestionIndex];
+  var promptEl = document.getElementById("question-words")
+    promptEl.textContent = currentQuestion.prompt;
+    choicesEl.innerHTML = "";
+    currentQuestion.options.forEach(function(choice, i) {
+        var choiceBtn = document.createElement("button");
+        choiceBtn.setAttribute("value", choice);
+        choiceBtn.textContent = i + 1 + ". " + choice;
+        choiceBtn.onclick = questionClick;
+        choicesEl.appendChild(choiceBtn);
+    });
+}
+
+// Check for right answers and deduct time for wrong answer, go to next question
+
+function questionClick() {
+    if (this.value !== questions[currentQuestionIndex].answer) {
+      time -= 10;
+      if (time < 0) {
+        time = 0;
+      }
+      timerEl.textContent = time;
+      feedbackEl.textContent = `Wrong! The correct answer was ${questions[currentQuestionIndex].answer}.`;
+      feedbackEl.style.color = "red";
+    } else {
+      feedbackEl.textContent = "Correct!";
+      feedbackEl.style.color = "green";
     }
-  ];
-
-let currentQuestion = 0;
-let score = 0;
-let timeLeft = 60;
-let timer;
-let highScores = [];
-
-function startQuiz() {
-    // Hide the start screen
-    document.getElementById("start-screen").style.display = "none";
-    // Show the quiz
-    document.getElementById("quiz").style.display = "block";
-    // Start the timer
-    timer = setInterval(function() {
-        timeLeft--;
-        document.getElementById("time-left").textContent = timeLeft;
-        if (timeLeft <= 0) {
-            endQuiz();
-        }
+    feedbackEl.setAttribute("class", "feedback");
+    setTimeout(function() {
+      feedbackEl.setAttribute("class", "feedback hide");
     }, 1000);
-    // Show the first question
-    showQuestion();
-}
-
-function showQuestion() {
-    // Get the current question object from the array
-    let question = questions[currentQuestion];
-    // Update the title with the current question
-    document.getElementById("question-title").textContent = question.question;
-    // Clear out any old question choices
-    document.getElementById("question-choices").innerHTML = "";
-    // Loop over the choices
-    question.choices.forEach(function(choice, i) {
-        // Create a new button for each choice
-        let choiceNode = document.createElement("button");
-        choiceNode.setAttribute("class", "choice");
-        choiceNode.setAttribute("value", choice);
-        choiceNode.textContent = i + 1 + ". " + choice;
-        // Attach an event listener to each choice
-        choiceNode.onclick = questionClick;
-        // Display on the page
-        document.getElementById("question-choices").append(choiceNode);
-    });
-}
-
-function questionClick(event) {
-    // Check if user guessed wrong
-    if (event.target.value !== questions[currentQuestion].answer) {
-        // Penalize time
-        timeLeft -= 10;
-        if (timeLeft < 0) {
-            timeLeft = 0;
-        }
-        // Display new time on page
-        document.getElementById("time-left").textContent = timeLeft;
+    currentQuestionIndex++;
+    if (currentQuestionIndex === questions.length) {
+      quizEnd();
     } else {
-        // Increase score
-        score++;
-        // Display new score on page
-        document.getElementById("score").textContent = score;
-    }
-    // Check if we've run out of questions
-    if (currentQuestion === questions.length - 1) {
-        endQuiz();
-    } else {
-        currentQuestion++;
-        showQuestion();
+      getQuestion();
     }
 }
 
-function endQuiz() {
-    // Stop the timer
-    clearInterval(timer);
-    // Show the end screen
-    document.getElementById("end-screen").style.display = "block";
-    // Show the final score
-    document.getElementById("final-score").textContent = score;
-    // Hide the questions section
-    document.getElementById("quiz").style.display = "none";
+// End quiz by hiding questions, stop timer and show final score
+
+function quizEnd() {
+    clearInterval(timerId);
+    var endScreenEl = document.getElementById("quiz-end");
+    endScreenEl.removeAttribute("class");
+    var finalScoreEl = document.getElementById("score-final");
+    finalScoreEl.textContent = time;
+    questionsEl.setAttribute("class", "hide");
 }
 
-function saveHighScore() {
-    // Get value of input box
-    let initials = document.getElementById("initials").value.trim();
-    // Make sure value wasn't empty
-    if (initials !== "") {
-        // Get saved scores from localstorage, or if not any, set to empty array
-        let highScores = JSON.parse(window.localStorage.getItem("highScores")) || [];
-        // Format new score object for current user
-        let newScore = {
-            score: score,
-            initials: initials
-        };
-        // Save to localstorage
-        highScores.push(newScore);
-        window.localStorage.setItem("highScores", JSON.stringify(highScores));
-        // Redirect to next page
-        window.location.href = "highscores.html";
+// End quiz if timer reaches 0
+
+function clockTick() {
+    time--;
+    timerEl.textContent = time;
+    if (time <= 0) {
+      quizEnd();
     }
 }
 
-function loadHighScores() {
-    // Get saved scores from localstorage, or if not any, set to empty array
-    let highScores = JSON.parse(window.localStorage.getItem("highScores")) || [];
-    // Sort highscores by score property in descending order
-    highScores.sort(function(a, b) {
-        return b.score - a.score;
-    });
-    highScores.forEach(function(score) {
-        // Create li tag for each high score
-        let liTag = document.createElement("li");
-        liTag.textContent = score.initials + " - " + score.score;
-        // Display on page
-        let olEl = document.getElementById("highScores");
-        olEl.appendChild(liTag);
-    });
+// Save score in local storage along with users' name
+
+function saveHighscore() {
+    var name = nameEl.value.trim();
+    if (name !== "") {
+      var highscores =
+        JSON.parse(window.localStorage.getItem("highscores")) || [];
+      var newScore = {
+        score: time,
+        name: name
+      };
+      highscores.push(newScore);
+      window.localStorage.setItem("highscores", JSON.stringify(highscores));
+      window.location.href = "highscores.html";
+    }
 }
 
-function clearHighScores() {
-    window.localStorage.removeItem("highScores");
-    window.location.href = "highscores.html";
-}
+// Save users' score after pressing enter
 
-// Start the quiz
-document.getElementById("start-btn").onclick = startQuiz;
-// Save the high score
-document.getElementById("save-btn").onclick = saveHighScore;
-// Clear the high scores
-document.getElementById("clear-btn").onclick = clearHighScores;
-// Load the high scores
-loadHighScores();
+function checkForEnter(event) {
+    if (event.key === "Enter") {
+        saveHighscore();
+    }
+}
+nameEl.onkeyup = checkForEnter;
+
+// Save users' score after clicking submit
+
+submitBtn.onclick = saveHighscore;
+
+
+
+// Start quiz after clicking start quiz
+
+startBtn.onclick = quizStart;
