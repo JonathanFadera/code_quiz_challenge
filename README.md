@@ -36,6 +36,14 @@ The following animation demonstrates the application functionality:
 
 ![Alt Text](assets/images/04-web-apis-homework-demo.gif)
 
+## Credits
+
+https://ucb.bootcampcontent.com/UCB-Coding-Bootcamp/UCB-VIRT-FSF-PT-01-2023-U-LOLC/-/tree/main/Week_04-Web-APIs/01-Activities : Class Modules and Activities for Web-APIs
+
+https://lodash.com/docs/4.17.15 : helpful links for arrays and functions 
+
+https://stackoverflow.com/search?q=coding+quiz+challenge : stack overflow knowledge sharing tools
+
 ## Deployed Application Link
 
 * https://jonathanfadera.github.io/code_quiz_challenge/
