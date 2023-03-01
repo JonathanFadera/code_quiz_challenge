@@ -37,3 +37,5 @@ The following animation demonstrates the application functionality:
 ![Alt Text](assets/images/04-web-apis-homework-demo.gif)
 
 ## Deployed Application Link
+
+* https://jonathanfadera.github.io/code_quiz_challenge/
