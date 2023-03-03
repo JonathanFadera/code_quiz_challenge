@@ -1,5 +1,4 @@
 // List of Questions and Answers
-
 var questions = [
     {
         prompt: "1.JavaScript is a ___ -side programming language.",
@@ -32,7 +31,6 @@ var questions = [
     }];
 
 // Get Dom Elements
-
 var questionsEl = document.querySelector("#questions");
 var timerEl = document.querySelector("#timer");
 var choicesEl = document.querySelector("#options");
@@ -43,7 +41,6 @@ var feedbackEl = document.querySelector("#feedback");
 var reStartBtn = document.querySelector("#restart");
 
 // Quiz's initial state
-
 var currentQuestionIndex = 0;
 var time = questions.length * 15;
 var timerId;
@@ -52,7 +49,9 @@ var timerId;
 
 function quizStart() {
     timerId = setInterval(clockTick, 1000);
+    console.log(timerId);
     timerEl.textContent = time;
+    console.log("quiz start");
     var landingScreenEl = document.getElementById("start-screen");
     landingScreenEl.setAttribute("class", "hide");
     questionsEl.removeAttribute("class");
@@ -60,7 +59,6 @@ function quizStart() {
 }
 
 // Loop through array of questions and answers and create list with buttons
-
 function getQuestion() {
     var currentQuestion = questions[currentQuestionIndex];
   var promptEl = document.getElementById("question-words")
@@ -76,10 +74,10 @@ function getQuestion() {
 }
 
 // Check for right answers and deduct time for wrong answer, go to next question
-
 function questionClick() {
     if (this.value !== questions[currentQuestionIndex].answer) {
       time -= 10;
+      console.log(time);
       if (time < 0) {
         time = 0;
       }
@@ -103,9 +101,9 @@ function questionClick() {
 }
 
 // End quiz by hiding questions, stop timer and show final score
-
 function quizEnd() {
     clearInterval(timerId);
+    console.log("quiz end");
     var endScreenEl = document.getElementById("quiz-end");
     endScreenEl.removeAttribute("class");
     var finalScoreEl = document.getElementById("score-final");
@@ -114,17 +112,17 @@ function quizEnd() {
 }
 
 // End quiz if timer reaches 0
-
 function clockTick() {
     time--;
+    console.log(time);
     timerEl.textContent = time;
+    console.log(timerId);
     if (time <= 0) {
       quizEnd();
     }
 }
 
 // Save score in local storage along with users' name
-
 function saveHighscore() {
     var name = nameEl.value.trim();
     if (name !== "") {
@@ -141,20 +139,13 @@ function saveHighscore() {
 }
 
 // Save users' score after pressing enter
-
 function checkForEnter(event) {
     if (event.key === "Enter") {
         saveHighscore();
     }
 }
 nameEl.onkeyup = checkForEnter;
-
 // Save users' score after clicking submit
-
 submitBtn.onclick = saveHighscore;
-
-
-
 // Start quiz after clicking start quiz
-
 startBtn.onclick = quizStart;
