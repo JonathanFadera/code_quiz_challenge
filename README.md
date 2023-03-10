@@ -7,7 +7,6 @@ Timed coding quiz that has multiple choice questions that stores your high score
 
 ## Acceptance Criteria
 
-```
 Create a code quiz that contains the following requirements:
 
 A start button that when clicked a timer starts and the first question appears.
@@ -31,7 +30,6 @@ Application user experience is intuitive and easy to navigate.
 Application user interface style is clean and polished.
 
 Application resembles the mock-up functionality provided in the challenge instructions.
-```
 
 ## Mock-Up
 
